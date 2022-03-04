@@ -10,13 +10,16 @@ import { useHistory } from "react-router-dom";
 function MovieItem({ movie }) {
 
     const history = useHistory();
+    const dispatch = useDispatch();
 
     const handleClick = (movie) => {
-        
+        dispatch({type: 'GET_DETAILS', payload: movie});
+
     }
+
     return (
-        <Card sx={{ maxWidth: 200 }}>
-            <CardActionArea onclick={handleClick}>
+        <Card sx={{ maxWidth: 300 }}>
+            <CardActionArea onClick={handleClick}>
                 <CardMedia
                     component="img"
                     height="300"
@@ -27,17 +30,8 @@ function MovieItem({ movie }) {
                     <Typography gutterBottom variant="h5" component="div">
                         {movie.title}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                        Lizards are a widespread group of squamate reptiles, with over 6,000
-                        species, ranging across all continents except Antarctica
-                    </Typography>
                 </CardContent>
             </CardActionArea>
-            <CardActions>
-                <Button size="small" color="primary">
-                    Share
-                </Button>
-            </CardActions>
         </Card>
 
     )
