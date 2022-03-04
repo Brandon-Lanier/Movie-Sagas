@@ -1,9 +1,17 @@
+import { useSelector } from 'react-redux';
+import useEffect from 'react';
+
+function MovieDetails() {
+
+    const details = useSelector(store => store.details);
 
 
-// function MovieDetails() {
+    return (
 
-//     return (
+        <div>
+            {details}
+        </div>
+    )
+}
 
-
-//     )
-// }
+export default MovieDetails;

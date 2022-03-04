@@ -16,6 +16,18 @@ function* rootSaga() {
     yield takeEvery('FETCH_MOVIES', fetchAllMovies);
     yield takeEvery('FETCH_GENRES', fetchGenres);
     yield takeEvery('GET_DETAILS', getDetails)
+    yield takeEvery('GET_GENRE_DETAILS', getGenreDetails)
+}
+
+function* getGenreDetails(action) {
+    console.log('Genre Details getter', action.payload);
+    try {
+        const genres = axios.get(`api/genres/${action.payload.id}`)
+        yield put({type: 'SET_GENRE_DETAILS', payload: genres})
+    } catch(error) {
+        console.log('Failed to get genre details', error);
+        
+    }
 }
 
 function* getDetails(action) {
@@ -45,7 +57,7 @@ function* fetchGenres() {
     //Get all genres from the database
     try {
         const genres = yield axios.get('/api/genre')
-        console.log('All generes', genres.data);
+        console.log('All genres', genres.data);
         yield put({type: 'SET_GENRES', payload: genres.data})
     } catch (error) {
         console.log('Error fetching genres', error); 
@@ -68,7 +80,7 @@ const movies = (state = [], action) => {
 // Used to store the movie genres
 const genres = (state = [], action) => {
     switch (action.type) {
-        case 'SET_GENRES':
+        case 'SET_GENRE_DETAILS':
             return action.payload;
         default:
             return state;
@@ -81,6 +93,13 @@ const details = (state = {}, action) => {
         case 'SET_DETAILS':
             return action.payload
             default: return state;
+    }
+}
+
+const genreDetails = (state = [], action) => {
+    switch (action.type){
+        case 'SET_GENRE_DETAILS':
+            return action.payload
     }
 }
 

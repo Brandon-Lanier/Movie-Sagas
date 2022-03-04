@@ -12,9 +12,9 @@ function MovieItem({ movie }) {
     const history = useHistory();
     const dispatch = useDispatch();
 
-    const handleClick = (movie) => {
+    const handleClick = () => {
         dispatch({type: 'GET_DETAILS', payload: movie});
-
+        history.push(`/details/${movie.id}`)
     }
 
     return (
