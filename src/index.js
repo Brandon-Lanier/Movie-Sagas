@@ -99,13 +99,6 @@ const details = (state = {}, action) => {
     }
 }
 
-// const genreDetails = (state = [], action) => {
-//     if (action.type === 'SET_GENRE_DETAILS') {
-//         return action.payload
-//     }
-//     return state;
-//  }
-
 
 const genreDetails = (state = [], action) => {
     console.log('Inside Reducer for Genres', action.payload );

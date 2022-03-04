@@ -7,8 +7,13 @@ import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import DropMenu from '../../DropMenu/DropMenu';
 
 function Header() {
+
+    const history = useHistory();
+    
     const Search = styled('div')(({ theme }) => ({
         position: 'relative',
         borderRadius: theme.shape.borderRadius,
@@ -54,15 +59,7 @@ function Header() {
         <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
           <Toolbar>
-            <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="open drawer"
-              sx={{ mr: 2 }}
-            >
-              <MenuIcon />
-            </IconButton>
+          <DropMenu />
             <Typography
               variant="h6"
               noWrap
