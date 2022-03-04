@@ -8,10 +8,8 @@ function MovieDetails() {
     const details = useSelector(store => store.details);
     const genresArray = useSelector(store => store.genreDetails)
     
-    console.log('In details details', details);
-    console.log(genresArray);
-
- 
+    // console.log('In details details', details);
+    // console.log(genresArray);
 
     return (
 
