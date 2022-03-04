@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
     })
 });
 
-router.get('movie/:id', (req, res) => {
+router.get('/:id', (req, res) => {
   const id = req.params.id
   const qryTxt = `SELECT * FROM movies WHERE id=$1`
   pool.query(qryTxt, [id])
