@@ -1,17 +1,36 @@
 import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import useEffect from 'react';
+import { Link } from 'react-router-dom';
 
 function MovieDetails() {
 
     const details = useSelector(store => store.details);
+    const genresArray = useSelector(store => store.genreDetails)
+    
+    console.log('In details details', details);
+    console.log(genresArray);
 
+ 
 
     return (
 
         <div>
-            {details}
+            <Link to="/">Go back</Link>
+            <p>{details[0].description}</p>
+            <img src={details[0].poster}/>
+            <p>{details[0].title}</p>
+            <ul>
+                {genresArray.map((genre, i) => (
+                    <li key={i}>
+                        {genre.name}
+                    </li>
+                ))}
+            </ul>
+         
         </div>
     )
 }
+
 
 export default MovieDetails;

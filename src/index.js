@@ -16,15 +16,15 @@ function* rootSaga() {
     yield takeEvery('FETCH_MOVIES', fetchAllMovies);
     yield takeEvery('FETCH_GENRES', fetchGenres);
     yield takeEvery('GET_DETAILS', getDetails)
-    yield takeEvery('GET_GENRE_DETAILS', getGenreDetails)
+    yield takeEvery('FETCH_GENRE_DETAILS', getGenreDetails)
 }
 
 function* getGenreDetails(action) {
     console.log('Genre Details getter', action.payload.id);
     try {
-        const genreDeets = axios.get(`/api/genre/${action.payload.id}`)
-        console.log('Genre from SERVER', genreDeets.data );
-        yield put({type: 'SET_GENRE_DETAILS', payload: genreDeets.data})
+        const genres = yield axios.get(`/api/genre/${action.payload.id}`)
+        yield put({type: 'SET_GENRE_DETAILS', payload: genres.data})
+        console.log('Genre from SERVER', genres );
     } catch(error) {
         console.log('Failed to get genre details', error);
         
@@ -99,13 +99,21 @@ const details = (state = {}, action) => {
     }
 }
 
+// const genreDetails = (state = [], action) => {
+//     if (action.type === 'SET_GENRE_DETAILS') {
+//         return action.payload
+//     }
+//     return state;
+//  }
+
+
 const genreDetails = (state = [], action) => {
     console.log('Inside Reducer for Genres', action.payload );
     switch (action.type){
         case 'SET_GENRE_DETAILS':
             return action.payload
             default: 
-                return state;
+                return state;       
     }
 }
 

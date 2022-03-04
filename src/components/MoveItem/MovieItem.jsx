@@ -14,8 +14,8 @@ function MovieItem({ movie }) {
 
     const handleClick = () => {
         dispatch({type: 'GET_DETAILS', payload: movie});
-        dispatch({type: 'GET_GENRE_DETAILS', payload: movie})
-        // history.push(`/details/${movie.id}`)
+        dispatch({type: 'FETCH_GENRE_DETAILS', payload: movie})
+        history.push(`/details`)
     }
 
     return (

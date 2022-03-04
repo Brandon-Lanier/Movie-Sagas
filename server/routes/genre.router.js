@@ -19,14 +19,14 @@ router.get('/:id', (req, res) => {
   const id = req.params.id
   console.log('movie id is', id);
   const qryTxt = `
-  SELECT ARRAY_AGG(genres.name) FROM genres
+  SELECT genres.name FROM genres
   JOIN movies_genres ON movies_genres.genre_id = genres.id
   JOIN movies ON movies_genres.movie_id = movies.id
   WHERE movies.id = $1;
   `;
   pool.query(qryTxt, [id])
   .then(result => {
-    console.log('Result is', result.rows);
+    console.log('Result is', result.rows)
     res.send(result.rows)
   }).catch(err => {
     res.sendStatus(500)
