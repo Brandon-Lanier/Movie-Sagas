@@ -18,6 +18,13 @@ function* rootSaga() {
     yield takeEvery('FETCH_GENRES', fetchGenres);
     yield takeEvery('GET_DETAILS', getDetails);
     yield takeEvery('FETCH_GENRE_DETAILS', getGenreDetails);
+    yield takeEvery('ADD_MOVIE', addMovie)
+}
+
+function* addMovie(action) {
+    console.log('New movie is', action.payload);
+    const newMovie = yield axios.post(('/api/movie', action.payload))
+    yield put(({type: 'FETCH_MOVIES'}))
 }
 
 function* getGenreDetails(action) {

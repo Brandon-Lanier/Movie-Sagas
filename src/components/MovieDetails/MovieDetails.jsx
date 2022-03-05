@@ -14,6 +14,7 @@ function MovieDetails() {
 
     const details = useSelector(store => store.details);
     const genresArray = useSelector(store => store.genreDetails)
+    
     const { id } = useParams();
 
    
