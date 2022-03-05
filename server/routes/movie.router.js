@@ -29,27 +29,23 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
   console.log(req.body);
   console.log('Genre id on server', req.body.genres);
-  
-  
-  // RETURNING "id" will give us back the id of the created movie
-  const insertMovieQuery = `
-  INSERT INTO "movies" ("title", "poster", "description")
+  const qryTxt = `
+  INSERT INTO movies (title, poster, description)
   VALUES ($1, $2, $3)
-  RETURNING "id";`
-  // FIRST QUERY MAKES MOVIE
-  pool.query(insertMovieQuery, [req.body.title, req.body.poster, req.body.description])
+  RETURNING id;`
+  // Returning will give us the new assigned ID from Database
+  pool.query(qryTxt, [req.body.title, req.body.poster, req.body.description])
   .then(result => {
     console.log('New Movie Id:', result.rows[0].id); //ID IS HERE!
     const newMovieId = result.rows[0].id
 
     // Now handle the genre reference
     const genresTxt = `
-      INSERT INTO "movies_genres" ("movie_id", "genre_id")
+      INSERT INTO movies_genres (movie_i, genre_id)
       VALUES  ($1, $2);
       `
-     
+      // Second query to handle adding to the movies_genre database
       pool.query(genresTxt, [newMovieId, req.body.genres[0]]).then(result => {
-     
         res.sendStatus(201);
       }).catch(err => {
         // catch for second query

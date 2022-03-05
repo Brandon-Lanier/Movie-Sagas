@@ -23,7 +23,7 @@ function MovieItem({ movie }) {
     
     return (
 
-        <Card sx={{ width: 280 }}>
+        <Card sx={{ width: 280 }} elevation={5}>
             <CardActionArea onClick={() => handleClick(movie)}>
                 <CardMedia
                     component="img"

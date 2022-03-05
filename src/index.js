@@ -10,13 +10,20 @@ import logger from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
 import { takeEvery, put } from 'redux-saga/effects';
 import axios from 'axios';
+import { useTheme, ThemeProvider, createTheme } from '@mui/material/styles';
 
+
+const darkTheme = createTheme({
+    palette: {
+      mode: 'dark',
+    },
+  });
 
 // Create the rootSaga generator function
 function* rootSaga() {
     yield takeEvery('FETCH_MOVIES', fetchAllMovies);
     yield takeEvery('FETCH_GENRES', fetchGenres);
-    // yield takeEvery('GET_DETAILS', getDetails);
+    yield takeEvery('GET_DETAILS', getDetails);
     yield takeEvery('FETCH_GENRE_DETAILS', getGenreDetails);
     yield takeEvery('ADD_MOVIE', addMovie)
 }
@@ -141,7 +148,9 @@ sagaMiddleware.run(rootSaga);
 ReactDOM.render(
     <React.StrictMode>
         <Provider store={storeInstance}>
+        <ThemeProvider theme={darkTheme}>
         <App />
+        </ThemeProvider>
         </Provider>
     </React.StrictMode>,
     document.getElementById('root')
