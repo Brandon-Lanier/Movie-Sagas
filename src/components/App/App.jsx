@@ -4,9 +4,19 @@ import MovieList from '../MovieList/MovieList';
 import MovieDetails from '../MovieDetails/MovieDetails';
 import AddMovie from '../AddMovie/AddMovie';
 import Header from '../Header/Header';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 
 function App() {
+
+  const dispatch = useDispatch();
+  
+  useEffect(() => {
+    dispatch({ type: 'FETCH_MOVIES' });
+    dispatch({ type: 'FETCH_GENRES'})
+}, []);
+
   return (
     <div className="App">
       <Router> 

@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
       console.log('all genres', result.rows);
       res.send(result.rows);
     }).catch(err => {
-      console.log('ERROR: Get all genres', err);
+      // console.log('ERROR: Get all genres', err);
       res.sendStatus(500)
     })
 });
@@ -25,7 +25,7 @@ router.get('/selected/:id', (req, res) => {
   `;
   pool.query(qryTxt, [id])
   .then(result => {
-    console.log('Result is', result.rows)
+    // console.log('Result is', result.rows)
     res.send(result.rows)
   }).catch(err => {
     res.sendStatus(500)

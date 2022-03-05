@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './components/App/App.js';
+import App from './components/App/App.jsx';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 // Provider allows us to use redux within our react app
 import { Provider } from 'react-redux';
@@ -16,21 +16,22 @@ import axios from 'axios';
 function* rootSaga() {
     yield takeEvery('FETCH_MOVIES', fetchAllMovies);
     yield takeEvery('FETCH_GENRES', fetchGenres);
-    yield takeEvery('GET_DETAILS', getDetails);
+    // yield takeEvery('GET_DETAILS', getDetails);
     yield takeEvery('FETCH_GENRE_DETAILS', getGenreDetails);
     yield takeEvery('ADD_MOVIE', addMovie)
 }
 
+
 function* addMovie(action) {
     console.log('New movie is', action.payload);
-    const newMovie = yield axios.post(('/api/movie', action.payload))
-    yield put(({type: 'FETCH_MOVIES'}))
+    const newMovie = yield axios.post('/api/movie', action.payload)
+    // yield put({type: 'FETCH_MOVIES'})
 }
 
 function* getGenreDetails(action) {
-    console.log('Genre Details getter', action.payload.id);
+    console.log('Genre Details getter', action.payload);
     try {
-        const genres = yield axios.get(`/api/genre/selected/${action.payload.id}`)
+        const genres = yield axios.get(`/api/genre/selected/${action.payload}`)
         yield put({type: 'SET_GENRE_DETAILS', payload: genres.data})
         console.log('Genre from SERVER', genres );
     } catch(error) {
@@ -40,9 +41,9 @@ function* getGenreDetails(action) {
 }
 
 function* getDetails(action) {
-    console.log('Payload is', action.payload.id);
+    console.log('Payload is', action.payload);
     try {
-        const movie = yield axios.get(`/api/movie/${action.payload.id}`)
+        const movie = yield axios.get(`/api/movie/${action.payload}`)
         console.log('movie from server', movie);
         yield put({type: 'SET_DETAILS', payload: movie.data})
     } catch (error) {
@@ -98,7 +99,7 @@ const genres = (state = [], action) => {
 }
 
 // Used to store movie details for selected movie
-const details = (state = [], action) => {
+const details = (state = {}, action) => {
     switch (action.type) {
         case 'SET_DETAILS':
                 return action.payload

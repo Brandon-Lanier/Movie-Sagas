@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import useEffect from 'react';
+import {useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
@@ -8,15 +8,14 @@ function MovieDetails() {
 
     const dispatch = useDispatch();
     
-    // useEffect(() => {
-    //     dispatch({ type: 'GET_DETAILS', payload: id });
-    // }, []);
-
     const details = useSelector(store => store.details);
     const genresArray = useSelector(store => store.genreDetails)
     
     const { id } = useParams();
 
+    useEffect(() => {
+        dispatch({ type: 'FETCH_GENRE_DETAILS', payload: id });
+    }, []);
    
    
     console.log('In details details', details);
@@ -26,9 +25,9 @@ function MovieDetails() {
 
         <div>
             <Link to="/">Go back</Link>
-            <p>{details[0].description}</p>
-            <img src={details[0].poster}/>
-            <p>{details[0].title}</p>
+            <p>{details.description}</p>
+            <img src={details.poster}/>
+            <p>{details.title}</p>
             <ul>
                 {genresArray.map((genre, i) => (
                     <li key={i}>
@@ -36,7 +35,6 @@ function MovieDetails() {
                     </li>
                 ))}
             </ul>
-         
         </div>
     )
 }
