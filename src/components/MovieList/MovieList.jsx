@@ -1,16 +1,14 @@
-import React, { useEffect } from 'react';
+import react from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import MovieItem from '../MoveItem/MovieItem';
 import './MovieList.css'
+import Grid from '@mui/material/Grid';
 
 function MovieList() {
 
     const dispatch = useDispatch();
     const movies = useSelector(store => store.movies);
-
-    useEffect(() => {
-        dispatch({ type: 'FETCH_MOVIES' });
-    }, []);
 
     return (
         <main>
@@ -21,7 +19,9 @@ function MovieList() {
                         key={movie.id}
                         movie={movie}
                     />
+                  
                 ))}
+                
             </section>
         </main>
 

@@ -7,20 +7,24 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
 
 
+
 function MovieItem({ movie }) {
 
     const history = useHistory();
     const dispatch = useDispatch();
 
-    const handleClick = () => {
-        dispatch({type: 'GET_DETAILS', payload: movie});
-        dispatch({type: 'FETCH_GENRE_DETAILS', payload: movie})
-        history.push(`/details`)
+    const handleClick = (movie) => {
+        dispatch({type: 'SET_DETAILS', payload: movie})
+        console.log('selected movie is', movie);
+        // dispatch({type: 'GET_DETAILS', payload: movie});
+        // dispatch({type: 'FETCH_GENRE_DETAILS', payload: movie})
+        history.push(`/details/${movie.id}`)
     }
-
+    
     return (
-        <Card sx={{ maxWidth: 300 }}>
-            <CardActionArea onClick={handleClick}>
+
+        <Card sx={{ width: 280 }} elevation={5}>
+            <CardActionArea onClick={() => handleClick(movie)}>
                 <CardMedia
                     component="img"
                     height="300"
@@ -28,7 +32,7 @@ function MovieItem({ movie }) {
                     alt={movie.title}
                 />
                 <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
+                    <Typography gutterBottom variant="h6" component="div">
                         {movie.title}
                     </Typography>
                 </CardContent>
