@@ -2,14 +2,24 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import useEffect from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 function MovieDetails() {
 
+    const dispatch = useDispatch();
+    
+    // useEffect(() => {
+    //     dispatch({ type: 'GET_DETAILS', payload: id });
+    // }, []);
+
     const details = useSelector(store => store.details);
     const genresArray = useSelector(store => store.genreDetails)
-    
-    // console.log('In details details', details);
-    // console.log(genresArray);
+    const { id } = useParams();
+
+   
+   
+    console.log('In details details', details);
+    console.log(genresArray);
 
     return (
 

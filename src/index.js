@@ -11,18 +11,19 @@ import createSagaMiddleware from 'redux-saga';
 import { takeEvery, put } from 'redux-saga/effects';
 import axios from 'axios';
 
+
 // Create the rootSaga generator function
 function* rootSaga() {
     yield takeEvery('FETCH_MOVIES', fetchAllMovies);
     yield takeEvery('FETCH_GENRES', fetchGenres);
-    yield takeEvery('GET_DETAILS', getDetails)
-    yield takeEvery('FETCH_GENRE_DETAILS', getGenreDetails)
+    yield takeEvery('GET_DETAILS', getDetails);
+    yield takeEvery('FETCH_GENRE_DETAILS', getGenreDetails);
 }
 
 function* getGenreDetails(action) {
     console.log('Genre Details getter', action.payload.id);
     try {
-        const genres = yield axios.get(`/api/genre/${action.payload.id}`)
+        const genres = yield axios.get(`/api/genre/selected/${action.payload.id}`)
         yield put({type: 'SET_GENRE_DETAILS', payload: genres.data})
         console.log('Genre from SERVER', genres );
     } catch(error) {
@@ -90,7 +91,7 @@ const genres = (state = [], action) => {
 }
 
 // Used to store movie details for selected movie
-const details = (state = {}, action) => {
+const details = (state = [], action) => {
     switch (action.type) {
         case 'SET_DETAILS':
                 return action.payload

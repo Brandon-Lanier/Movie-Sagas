@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import react from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import MovieItem from '../MoveItem/MovieItem';
 import './MovieList.css'
@@ -12,6 +13,7 @@ function MovieList() {
         dispatch({ type: 'FETCH_MOVIES' });
     }, []);
 
+    
     return (
         <main>
             <h1>MovieList</h1>
