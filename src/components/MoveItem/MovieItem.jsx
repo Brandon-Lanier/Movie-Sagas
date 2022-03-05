@@ -23,11 +23,11 @@ function MovieItem({ movie }) {
     
     return (
 
-        <Card sx={{ maxWidth: 300 }}>
+        <Card sx={{ width: 280 }}>
             <CardActionArea onClick={() => handleClick(movie)}>
                 <CardMedia
                     component="img"
-                    height="280"
+                    height="300"
                     image={movie.poster}
                     alt={movie.title}
                 />

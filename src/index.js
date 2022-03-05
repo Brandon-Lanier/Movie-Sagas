@@ -24,8 +24,12 @@ function* rootSaga() {
 
 function* addMovie(action) {
     console.log('New movie is', action.payload);
-    const newMovie = yield axios.post('/api/movie', action.payload)
-    // yield put({type: 'FETCH_MOVIES'})
+    try {
+        yield axios.post('/api/movie', action.payload)
+        yield put({type: 'FETCH_MOVIES'})
+    } catch(error) {
+        console.log('Error adding movie', error);
+    }
 }
 
 function* getGenreDetails(action) {

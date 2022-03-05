@@ -40,12 +40,12 @@ function Header() {
                 >
                     Epic Movie List
                 </Typography>
-                    <Autocomplete
+                    {/* <Autocomplete
                         id="moviesearch"
                         freeSolo
                         options={movieList.map((option) => option.title)}
                         renderInput={(params) => <TextField {...params} label="Search A Movie" sx={{width:"300px"}} onChange={(e) => setSelectMovie(e.target.value)}/>}
-                    />
+                    /> */}
             </Toolbar>
         </AppBar>
         </Box>

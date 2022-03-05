@@ -40,8 +40,6 @@ function AddMovie() {
     }
 
 
-
-
     return (
         <Container sx={{ mt: '30px', display: 'flex', justifyContent: 'center' }}>
             <Paper
