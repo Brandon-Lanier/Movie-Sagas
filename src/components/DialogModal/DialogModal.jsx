@@ -10,6 +10,8 @@ import { useState } from 'react';
 
 function DialogModal() {
  
+  // Handles notification if inputs are not entered on add movie page.
+
   const [open, setOpen] = useState(true);
 
   const handleClickOpen = () => {
@@ -19,6 +21,7 @@ function DialogModal() {
   const handleClose = () => {
     setOpen(false);
   };
+
 
   return (
     

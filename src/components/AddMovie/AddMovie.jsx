@@ -37,6 +37,7 @@ function AddMovie() {
             event.preventDefault();
             dispatch({ type: 'ADD_MOVIE', payload: newMovie });
             setNewMovie(movieState);
+            history.push('/'); // Go back to homepage after entering movie
         }
         else {
             // If a field is not filled out, display dialog

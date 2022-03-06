@@ -115,8 +115,8 @@ function* fetchMatchGenre(action) {
     try {
         console.log('action payload for match is', action.payload);
         const genreQuery = action.payload
-        const matchedMovies = yield axios.get('/api/movie/match', {params: {genre: genreQuery}});
-        yield put({type: 'SET_MATCH_GENRES', payload: matchedMovies})
+        const matchedMovies = yield axios.get('/api/genre/match', {params: {genre: genreQuery}});
+        yield put({type: 'SET_MATCH_GENRES', payload: matchedMovies.data})
     } catch(error) {
         console.log('Error getting matched movies', error);
     }
@@ -134,7 +134,7 @@ const movies = (state = [], action) => {
 
 const matchedMovies = (state = [], action) => {
     switch (action.type) {
-        case 'SET_MATCH_GENRE':
+        case 'SET_MATCH_GENRES':
             return action.payload;
         default:
             return state;
@@ -194,7 +194,8 @@ const storeInstance = createStore(
         genres,
         details,
         genreDetails,
-        watchList
+        watchList,
+        matchedMovies
     }),
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),

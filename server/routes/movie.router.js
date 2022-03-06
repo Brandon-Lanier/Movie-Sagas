@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
 
 router.get('/:id', (req, res) => {
   const id = req.params.id
-  const qryTxt = `SELECT * FROM movies WHERE id=$1`
+  const qryTxt = `SELECT * FROM movies WHERE id = $1;`
   pool.query(qryTxt, [id])
     .then(result => {
       res.send(result.rows)
@@ -76,11 +76,6 @@ router.put('/edit/:id', (req, res) => {
       res.sendStatus(500)
     })
 })
-
-router.get('/match', (req, res) => {
-
-})
-
 
 
 module.exports = router;

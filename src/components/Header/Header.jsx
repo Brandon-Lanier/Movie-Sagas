@@ -23,6 +23,7 @@ function Header() {
     const movieList = useSelector(store => store.movies);
 
     const movieSearch = () => {
+        // Not fully functional yet
         console.log('Searching Movie');
     }
 

@@ -13,14 +13,17 @@ function Footer() {
 
     const history = useHistory();
 
+    //When home button is clicked
     const goHome = () => {
         history.push('/')
     }
 
+    // When watchlist button is clicked
     const goWatch = () => {
         history.push('/watchlist')
     }
 
+    // When add movie button is clicked
     const goAdd = () => {
         history.push('/add')
     }
