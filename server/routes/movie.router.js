@@ -41,11 +41,11 @@ router.post('/', (req, res) => {
 
     // Now handle the genre reference
     const genresTxt = `
-      INSERT INTO movies_genres (movie_i, genre_id)
+      INSERT INTO movies_genres (movie_id, genre_id)
       VALUES  ($1, $2);
       `
       // Second query to handle adding to the movies_genre database
-      pool.query(genresTxt, [newMovieId, req.body.genres[0]]).then(result => {
+      pool.query(genresTxt, [newMovieId, req.body.genres]).then(result => {
         res.sendStatus(201);
       }).catch(err => {
         // catch for second query

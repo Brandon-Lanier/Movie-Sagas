@@ -26,8 +26,19 @@ function* rootSaga() {
     yield takeEvery('GET_DETAILS', getDetails);
     yield takeEvery('FETCH_GENRE_DETAILS', getGenreDetails);
     yield takeEvery('ADD_MOVIE', addMovie)
+    yield takeEvery('ADD_WATCHLIST', addToWatchList)
 }
 
+
+function* addToWatchList(action) {
+    try {
+        const watchAdd = yield axios.get(`/api/movie/${action.payload}`)
+        yield put({type: 'SET_WATCHLIST', payload: watchAdd.data})
+    } catch(error) {
+        console.log('Error Add To Watchlist', error);
+        
+    }
+}
 
 function* addMovie(action) {
     console.log('New movie is', action.payload);
@@ -55,8 +66,8 @@ function* getDetails(action) {
     console.log('Payload is', action.payload);
     try {
         const movie = yield axios.get(`/api/movie/${action.payload}`)
-        console.log('movie from server', movie);
-        yield put({type: 'SET_DETAILS', payload: movie.data})
+        console.log('movie GET FROM server', movie);
+        yield put({type: 'SET_DETAILS', payload: movie.data.data})
     } catch (error) {
         console.log('Error getting details', error);  
     }
@@ -113,9 +124,11 @@ const genres = (state = [], action) => {
 const details = (state = {}, action) => {
     switch (action.type) {
         case 'SET_DETAILS':
-                return action.payload
-            default: 
-                return state;
+                return action.payload;
+        case 'GET_DETAILS':
+            return state
+        default: 
+            return state;
     }
 }
 
@@ -130,13 +143,24 @@ const genreDetails = (state = [], action) => {
     }
 }
 
+// Reducer that stores things selected for watchlist
+const watchList = (state = [], action) => {
+    console.log('In Watch List', action.payload);
+    switch (action.type){
+        case "SET_WATCHLIST":
+            return [...state, action.payload]
+    }
+    return state;
+}
+
 // Create one store that all components can use
 const storeInstance = createStore(
     combineReducers({
         movies,
         genres,
         details,
-        genreDetails
+        genreDetails,
+        watchList
     }),
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),

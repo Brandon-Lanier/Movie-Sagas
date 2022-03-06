@@ -48,8 +48,8 @@ function AddMovie() {
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'space-between',
-                    width: '700px',
-                    p: '50px',
+                    width: '500px',
+                    p: '20px',
                 }}
             >
                 <FormControl sx={{ width: '100%' }}>
@@ -57,34 +57,34 @@ function AddMovie() {
                         Add A Movie
                     </Typography>
                     <TextField
-                        sx={{ m: '10px' }}
+                        sx={{ margin: '10px' }}
                         type="text"
                         label="Movie Title"
                         required
                         value={newMovie.title}
-                        onChange={(event) =>
-                            setNewMovie({ ...newMovie, title: event.target.value })
+                        onChange={(e) =>
+                            setNewMovie({ ...newMovie, title: e.target.value })
                         }
                     />
                     <TextField
-                        sx={{ m: '10px' }}
+                        sx={{ margin: '10px' }}
                         type="text"
                         required
                         label="Movie Poster URL"
                         value={newMovie.poster}
-                        onChange={(event) =>
-                            setNewMovie({ ...newMovie, poster: event.target.value })
+                        onChange={(e) =>
+                            setNewMovie({ ...newMovie, poster: e.target.value })
                         }
                     />
                     <TextField
-                        sx={{ m: '10px' }}
+                        sx={{ margin: '10px' }}
                         required
                         multiline
-                        rows="6"
-                        label="Add Movie Description"
+                        rows="5"
+                        label=" Movie Description"
                         value={newMovie.description}
-                        onChange={(event) =>
-                            setNewMovie({ ...newMovie, description: event.target.value })
+                        onChange={(e) =>
+                            setNewMovie({ ...newMovie, description: e.target.value })
                         }
                     ></TextField>
                 </FormControl>
@@ -92,20 +92,19 @@ function AddMovie() {
                     sx={{
                         width: '100%',
                         display: 'flex',
-                        justifyContent: 'space-evenly',
-                        mt: '10px',
+                        justifyContent: 'center',
+                        margin: '10px',
                     }}
                 >
-                    <FormControl sx={{ width: '53%' }}>
+                    <FormControl sx={{ width: '80%', margin: 'auto' }}>
                         <InputLabel id="select-genres-label">Select Genre</InputLabel>
                         <Select
                             labelId="select-genres-label"
                             id="select-genres"
                             label="Select Genres"
-                            multiple
                             value={newMovie.genres}
-                            onChange={(event) =>
-                                setNewMovie({ ...newMovie, genres: event.target.value })
+                            onChange={(e) =>
+                                setNewMovie({ ...newMovie, genres: e.target.value })
                             }
                         >
                             {genres.map((genre) => (
@@ -115,10 +114,19 @@ function AddMovie() {
                             ))}
                         </Select>
                     </FormControl>
-                    <Button
-                        sx={{ height: '56px', width: '21%' }}
+                </Box>
+                <Box 
+                sx={{
+                    width: '100%',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    mt: '10px',
+                }}
+            >
+                <Button
+                        sx={{ margin: '10px' }}
                         variant="contained"
-                        color="error"
+                        color="secondary"
                         onClick={() => history.push('/')}
                     >
                         <Typography variant="h6">Cancel</Typography>
@@ -127,11 +135,11 @@ function AddMovie() {
                         variant="contained"
                         color="primary"
                         onClick={saveMovie}
-                        sx={{ height: '56px', width: '21%' }}
+                        sx={{ margin: '10px' }}
                     >
                         <Typography variant="h6">Submit</Typography>
                     </Button>
-                </Box>
+                    </Box>
             </Paper>
         </Container>
     )

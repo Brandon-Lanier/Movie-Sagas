@@ -2,8 +2,10 @@ import react from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import MovieItem from '../MoveItem/MovieItem';
+import { Typography } from '@mui/material';
 import './MovieList.css'
-import Grid from '@mui/material/Grid';
+
+
 
 function MovieList() {
 
@@ -12,16 +14,17 @@ function MovieList() {
 
     return (
         <main>
-            <h1>MovieList</h1>
+            <Typography variant="h3">
+            Movie List
+            </Typography>
             <section className="movies">
-                {movies.map(movie => (
+            {movies.map(movie => (
                     <MovieItem
                         key={movie.id}
                         movie={movie}
                     />
-                  
+                    
                 ))}
-                
             </section>
         </main>
 
