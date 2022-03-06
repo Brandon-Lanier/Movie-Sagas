@@ -11,8 +11,8 @@ function WatchList() {
     console.log('Watch list is', movieList);
     return (
         <>
-        <Typography variant="h3" sx={{mt: '10px'}}>
-            Watchlist
+        <Typography variant="h3" sx={{mt: '10px', mb: '10px'}}>
+            Movies To Watch
         </Typography>
         <Container
             sx={{
