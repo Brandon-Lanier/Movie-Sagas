@@ -1,21 +1,26 @@
 import { useDispatch, useSelector } from 'react-redux';
 import MovieItem from '../MoveItem/MovieItem';
 import WatchItem from '../WatchItem/WatchItem';
-import { Box } from '@mui/material';
+import { Container } from '@mui/material';
 import { Typography } from '@mui/material';
 
 function WatchList() {
 
-    const movieList = useSelector(store => store.watchList[0])
+    const movieList = useSelector(store => store.watchList)
     
     console.log('Watch list is', movieList);
     return (
-        <Box
+        <>
+        <Typography variant="h3" sx={{mt: '10px'}}>
+            Watchlist
+        </Typography>
+        <Container
             sx={{
                 width: '100%',
-                dispaly: 'flex',
+                display: 'flex',
                 justifyContent: 'center',
-                m: '20px'
+                m: 'auto',
+                spacing: '5'
             }}>
             {movieList.map(movie => (
                     <WatchItem
@@ -23,7 +28,8 @@ function WatchList() {
                         movie={movie}
                     />
                 ))}
-            </Box>
+            </Container>
+            </>
     )
 }
 

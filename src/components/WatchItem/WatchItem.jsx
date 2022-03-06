@@ -10,7 +10,7 @@ import { useHistory } from "react-router-dom";
 function WatchItem({movie}) {
 
     return (
-        <Card sx={{ width: 280 }} elevation={5}>
+        <Card sx={{ width: 280, margin: '10px' }} elevation={5}>
             <CardActionArea>
                 <CardMedia
                     component="img"

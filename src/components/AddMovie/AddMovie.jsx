@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import DialogModal from '../DialogModal/DialogModal';
 import {Container, Box, Typography, TextField, Button, FormControl, Select, MenuItem, InputLabel, Paper} from '@mui/material';
 
 function AddMovie() {
@@ -24,16 +25,27 @@ function AddMovie() {
     };
 
     const [newMovie, setNewMovie] = useState(movieState);
-
+    const [showDialog, setShowDialog] = useState(false)
 
     const addMovie = (event) => {
+        if (newMovie.title, newMovie.poster, newMovie.description, newMovie.genres) {
         event.preventDefault();
         dispatch({ type: 'ADD_MOVIE', payload: newMovie });
         setNewMovie(movieState);
+        }
+        else { 
+            setShowDialog(true);
+        }
     }
+
+    const handleClose = () => {
+        setShowDialog(false);
+      };
+
 
 
     return (
+        <>
         <Container sx={{ mt: '30px', display: 'flex', justifyContent: 'center' }}>
             <Paper
                 elevation={12}
@@ -120,7 +132,7 @@ function AddMovie() {
                     </Button>
                     <Button
                         variant="contained"
-                        color="primary"
+                        backgroundColor="dark"
                         onClick={addMovie}
                         sx={{ margin: '10px' }}
                     >
@@ -129,6 +141,8 @@ function AddMovie() {
                     </Box>
             </Paper>
         </Container>
+        {showDialog && <DialogModal />}
+        </>
     )
 }
 

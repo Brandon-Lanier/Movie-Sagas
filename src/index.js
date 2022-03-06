@@ -33,7 +33,7 @@ function* rootSaga() {
 function* addToWatchList(action) {
     try {
         const watchAdd = yield axios.get(`/api/movie/${action.payload}`)
-        yield put({type: 'SET_WATCHLIST', payload: watchAdd.data})
+        yield put({type: 'SET_WATCHLIST', payload: watchAdd.data[0]})
     } catch(error) {
         console.log('Error Add To Watchlist', error);
         
