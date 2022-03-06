@@ -1,10 +1,8 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
-import { useDispatch } from 'react-redux';
 import Grid from '@mui/material/Grid';
 import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
@@ -29,6 +27,8 @@ function MovieDetails() {
 
     const dispatch = useDispatch();
     const history = useHistory();
+
+    // Store the page params as a variable to access the movies data
     const { id } = useParams();
 
     const details = useSelector(store => store.details);
@@ -36,37 +36,46 @@ function MovieDetails() {
 
 
     useEffect(() => {
+        // Upon load, get the selected movie details and genre for the movie based on the params id
         dispatch({ type: 'GET_DETAILS', payload: id });
         dispatch({ type: 'FETCH_GENRE_DETAILS', payload: id });
     }, []);
 
 
+    // Default state for updating the movie title and description
     const updateState = {
         title: '',
         description: ''
     }
 
-    const [update, setUpdate] = useState(updateState)
-    const [open, setOpen] = useState(false)
+    // Storing the local updates to the movie title and description in here
+    const [update, setUpdate] = useState(updateState);
 
+    //Handles opening the edit dialog
+    const [open, setOpen] = useState(false);
+
+    // Handles updating the selected movie
     const updateMovie = (e) => {
-        console.log('Update movie is', update);
         e.preventDefault();
+        // Sending dispatch to saga to handle the edit movie function
         dispatch({ type: 'EDIT_MOVIE', payload: { update, id } });
-        setOpen(false);
-        setUpdate(updateState);
-        dispatch({ type: 'GET_DETAILS', payload: id });
+        setOpen(false); // Close the edit dialog
+        setUpdate(updateState); // reset the edit state to default
+        dispatch({ type: 'GET_DETAILS', payload: id }); // Needs to be done to show the updated edits
     }
 
     const handleClickOpen = () => {
+        // Opens edit Dialog box.
         setOpen(true);
     };
 
     const handleCloseEdit = () => {
+        //Handles closing the dialog box
         setOpen(false);
         setUpdate(updateState);
     }
 
+    // Default styles for images render on this page
     const Img = styled('img')({
         margin: 'auto',
         display: 'block',
@@ -74,6 +83,7 @@ function MovieDetails() {
         maxHeight: '100%',
     });
 
+    // Handles the added to watchlist alert 
     const [openAlert, setOpenAlert] = useState(false);
 
     const alert = () => {
@@ -86,8 +96,9 @@ function MovieDetails() {
     };
 
     const addWatchList = () => {
+        // Send to saga to add a movie to the watchlist
         dispatch({ type: 'ADD_WATCHLIST', payload: id })
-        alert();
+        alert(); //
     }
 
     const goBack = () => {
@@ -96,6 +107,7 @@ function MovieDetails() {
     }
 
     const searchGenre = (genre) => {
+        // Handles click of a genre to see other movies that have the same genre
         console.log('In Search genre', genre);
         history.push(`/genres/${genre.name}`)
     }
@@ -208,19 +220,3 @@ function MovieDetails() {
 
 
 export default MovieDetails;
-
-// <Container>
-// <h3>{details.title}</h3>
-// <p>{details.description}</p>
-// <img src={details.poster} />
-
-// <h3>Genres:</h3>
-// <ul>
-//     {genresArray.map((genre, i) => (
-//         <li key={i}>
-//             {genre.name}
-//         </li>
-//     ))}
-// </ul>
-// <Link to="/">Go back</Link>
-// </Container>

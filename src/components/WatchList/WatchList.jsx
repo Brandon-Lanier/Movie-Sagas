@@ -6,30 +6,31 @@ import { Typography } from '@mui/material';
 
 function WatchList() {
 
+    // Grab all the movies store in the WatchList reducer
     const movieList = useSelector(store => store.watchList)
-    
+
     console.log('Watch list is', movieList);
     return (
         <>
-        <Typography variant="h3" sx={{mt: '10px', mb: '10px'}}>
-            Movies To Watch
-        </Typography>
-        <Container
-            sx={{
-                width: '100%',
-                display: 'flex',
-                justifyContent: 'center',
-                m: 'auto',
-                spacing: '5'
-            }}>
-            {movieList.map(movie => (
+            <Typography variant="h3" sx={{ mt: '10px', mb: '10px' }}>
+                Movies To Watch
+            </Typography>
+            <Container
+                sx={{
+                    width: '100%',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    m: 'auto',
+                    spacing: '5'
+                }}>
+                {movieList.map(movie => (
                     <WatchItem
                         key={movie.id}
                         movie={movie}
                     />
                 ))}
             </Container>
-            </>
+        </>
     )
 }
 

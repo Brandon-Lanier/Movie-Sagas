@@ -7,6 +7,9 @@ import { useHistory } from 'react-router-dom';
 
 function DropMenu() {
 
+    // No longer using the drop menu in the app bar, decided on the footer navbar instead.
+    // Leaving here for reference if I need to use one later on.
+
     const history = useHistory();
 
     const [anchorEl, setAnchorEl] = useState(null);

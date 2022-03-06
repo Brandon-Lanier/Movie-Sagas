@@ -15,9 +15,8 @@ function WatchItem({movie}) {
 
     const dispatch = useDispatch();
 
-
     const removeWatch = () => {
-        console.log(movie.id);
+        // Tell reducer storing the watchlist to remove the movie selected.
         dispatch({type: 'REMOVE_WATCH', payload: movie.id})
     }
   

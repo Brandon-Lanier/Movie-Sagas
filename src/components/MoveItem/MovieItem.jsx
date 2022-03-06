@@ -13,17 +13,18 @@ function MovieItem({ movie }) {
     const dispatch = useDispatch();
 
     const handleClick = (movie) => {
+        // When a movie is clicked, tell reducer to store the selected movie and go to movie page
         dispatch({type: 'SET_DETAILS', payload: movie})
         history.push(`/details/${movie.id}`)
     }
     
     return (
 
-        <Card sx={{ width: 250 }} elevation={5}>
+        <Card sx={{ width: 200 }} elevation={5}>
             <CardActionArea onClick={() => handleClick(movie)}>
                 <CardMedia
                     component="img"
-                    height="250"
+                    height="300"
                     image={movie.poster}
                     alt={movie.title}
                 />
