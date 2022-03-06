@@ -1,5 +1,5 @@
-![REPO SIZE](https://img.shields.io/github/repo-size/brandon-lanier/weekend-movie-sagas/.svg?style=flat-square)
-![TOP_LANGUAGE](https://img.shields.io/github/languages/top/brandon-lanier/weekend-movie-sagas/.svg?style=flat-square)
+![REPO SIZE](https://img.shields.io/github/repo-size/brandon-lanier/weekend-movie-sagas.svg?style=flat-square)
+![TOP_LANGUAGE](https://img.shields.io/github/languages/top/brandon-lanier/weekend-movie-sagas.svg?style=flat-square)
 # Sagas Movie App
 
 ## Description
