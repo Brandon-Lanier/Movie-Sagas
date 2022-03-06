@@ -6,9 +6,22 @@ import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
+import IconButton from '@mui/material/IconButton';
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import { makeStyles } from "@material-ui/styles";
+
 
 function WatchItem({movie}) {
 
+    const dispatch = useDispatch();
+
+
+    const removeWatch = () => {
+        console.log(movie.id);
+        dispatch({type: 'REMOVE_WATCH', payload: movie.id})
+    }
+  
+    
     return (
         <Card sx={{ width: 280, margin: '10px' }} elevation={5}>
             <CardActionArea>
@@ -22,8 +35,15 @@ function WatchItem({movie}) {
                     <Typography gutterBottom variant="h6" component="div">
                         {movie.title}
                     </Typography>
+                    <IconButton
+                    aria-label="delete"
+                    onClick={removeWatch}
+                        >
+                    <RemoveCircleOutlineIcon />
+                </IconButton>
                 </CardContent>
             </CardActionArea>
+          
         </Card>
 
     )

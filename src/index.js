@@ -16,6 +16,10 @@ import { useTheme, ThemeProvider, createTheme } from '@mui/material/styles';
 const darkTheme = createTheme({
     palette: {
       mode: 'dark',
+      primary: {
+        main: '#fff',
+        contrastText: '#121212'
+      }
     },
   });
 
@@ -67,7 +71,7 @@ function* getDetails(action) {
     try {
         const movie = yield axios.get(`/api/movie/${action.payload}`)
         console.log('movie GET FROM server', movie);
-        yield put({type: 'SET_DETAILS', payload: movie.data.data})
+        yield put({type: 'SET_DETAILS', payload: movie.data[0]})
     } catch (error) {
         console.log('Error getting details', error);  
     }
@@ -124,13 +128,10 @@ const details = (state = {}, action) => {
     switch (action.type) {
         case 'SET_DETAILS':
                 return action.payload;
-        case 'GET_DETAILS':
-            return state
         default: 
             return state;
     }
 }
-
 
 const genreDetails = (state = [], action) => {
     console.log('Inside Reducer for Genres', action.payload );
@@ -142,12 +143,14 @@ const genreDetails = (state = [], action) => {
     }
 }
 
-// Reducer that stores things selected for watchlist
+// Reducer that stores things selected for watchlist and manages removing them.
 const watchList = (state = [], action) => {
     console.log('In Watch List', action.payload);
     switch (action.type){
         case "SET_WATCHLIST":
             return [...state, action.payload]
+        case "REMOVE_WATCH":
+            return state.filter(movie => movie.id !== action.payload)
     }
     return state;
 }

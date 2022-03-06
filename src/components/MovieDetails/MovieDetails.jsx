@@ -13,6 +13,8 @@ import Typography from '@mui/material/Typography';
 import ButtonBase from '@mui/material/ButtonBase';
 import { Fade } from '@mui/material';
 import Alert from '@mui/material/Alert';
+import Chip from '@mui/material/Chip';
+import Stack from '@mui/material/Stack';
 import { useHistory } from 'react-router-dom';
 import './MovieDetails.css'
 
@@ -26,12 +28,14 @@ function MovieDetails() {
     const details = useSelector(store => store.details);
     const genresArray = useSelector(store => store.genreDetails)
 
+
+
     useEffect(() => {
-        // dispatch({ type: 'GET_DETAILS', payload: id });
+        dispatch({ type: 'GET_DETAILS', payload: id });
         dispatch({ type: 'FETCH_GENRE_DETAILS', payload: id });
         setTimeout(() => {
             setOpenAlert(false);
-        }, 4000);
+        }, 3000);
     }, []);
 
     const Img = styled('img')({
@@ -62,11 +66,14 @@ function MovieDetails() {
         history.push('/');
     }
 
+    const searchGenre = (genre) => {
+        console.log('In Search genre', genre);
+    }
 
     return (
         <>
             {openAlert && <Alert severity="success">Movie Added To Watchlist!</Alert>}
-            <Box sx={{ mt: '10px' }}>
+            <Box sx={{ mt: '10px'}} >
                 <Button onClick={goBack}>Back To List</Button>
             </Box>
             <Fade in="true" out="close" mountOnEnter unmountOnExit>
@@ -91,11 +98,12 @@ function MovieDetails() {
                                 <Typography variant="h6" color="text.primary">
                                     Genres:
                                 </Typography>
-                                <Typography variant="body2" color="text.secondary">
+                                <Stack direction="column" spacing={1}>
                                     {genresArray.map(genre => (
-                                        <p key={genre.id}>{genre.name}</p>
+                                        <Chip key={genre.id} label={genre.name} onClick={() => searchGenre(genre)} />
                                     ))}
-                                </Typography>
+                                </Stack>
+
                             </Grid>
                         </Grid>
                         <Grid item xs={12} sm container>
@@ -110,7 +118,7 @@ function MovieDetails() {
                                 </Grid>
                                 <Grid item>
                                     <Typography sx={{ cursor: 'pointer' }} variant="body1" onClick={handleRemove}>
-                                        Remove
+                                        Edit Details
                                     </Typography>
                                 </Grid>
                                 <Grid item>
