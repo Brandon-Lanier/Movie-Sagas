@@ -6,19 +6,16 @@ import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import Grid from '@mui/material/Grid';
-import { Box, Container } from '@mui/material';
+import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import ButtonBase from '@mui/material/ButtonBase';
 import { Fade } from '@mui/material';
-import Alert from '@mui/material/Alert';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import { useHistory } from 'react-router-dom';
 import Snackbar from '@mui/material/Snackbar';
-import Slide from '@mui/material/Slide';
-import EditDialog from '../EditDialog/EditDialog';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -55,7 +52,7 @@ function MovieDetails() {
     const updateMovie = (e) => {
         console.log('Update movie is', update);
         e.preventDefault();
-        dispatch({type: 'EDIT_MOVIE', payload: {update, id}});
+        dispatch({ type: 'EDIT_MOVIE', payload: { update, id } });
         setOpen(false);
         setUpdate(updateState);
         dispatch({ type: 'GET_DETAILS', payload: id });
@@ -86,7 +83,7 @@ function MovieDetails() {
 
     const handleClose = () => {
         setOpenAlert(false);
-      };
+    };
 
     const addWatchList = () => {
         dispatch({ type: 'ADD_WATCHLIST', payload: id })
@@ -100,9 +97,10 @@ function MovieDetails() {
 
     const searchGenre = (genre) => {
         console.log('In Search genre', genre);
+        history.push(`/genres/${genre.name}`)
     }
 
-    
+
 
     return (
         <>
@@ -149,20 +147,16 @@ function MovieDetails() {
                                     </Typography>
                                 </Grid>
                                 <Grid item>
-                                    <Typography sx={{ cursor: 'pointer' }} variant="body1" onClick={handleClickOpen}>
-                                        Edit Details
-                                    </Typography>
+                                    <Button sx={{ m: '0' }} onClick={handleClickOpen}>Edit Details</Button>
                                 </Grid>
                                 <Grid item>
-                                    <Typography sx={{ cursor: 'pointer' }} variant="body1" onClick={addWatchList}>
-                                        Add To Watchlist
-                                    </Typography>
-                                    {openAlert &&<Snackbar
+                                    <Button sx={{ m: '0' }} onClick={addWatchList}>Add To Watchlist</Button>
+                                    {openAlert && <Snackbar
                                         open={alert}
                                         onClose={handleClose}
                                         autoHideDuration={2000}
                                         message="Added To Watchlist"
-                                       
+
                                     />}
                                 </Grid>
                             </Grid>
@@ -186,7 +180,7 @@ function MovieDetails() {
                         placeholder={details.title}
                         variant="standard"
                         value={update.title}
-                        onChange={(e) => setUpdate({...update, title: e.target.value})}
+                        onChange={(e) => setUpdate({ ...update, title: e.target.value })}
                     />
                     <TextField
                         autoFocus
@@ -200,7 +194,7 @@ function MovieDetails() {
                         placeholder={details.description}
                         variant="standard"
                         value={update.description}
-                        onChange={(e) => setUpdate({...update, description: e.target.value})}
+                        onChange={(e) => setUpdate({ ...update, description: e.target.value })}
                     />
                 </DialogContent>
                 <DialogActions>
