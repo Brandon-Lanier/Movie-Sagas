@@ -52,10 +52,27 @@ router.post('/', (req, res) => {
         console.log(err);
         res.sendStatus(500)
       })
-
 // Catch for first query
   }).catch(err => {
     console.log(err);
+    res.sendStatus(500)
+  })
+})
+
+router.put('/edit/:id', (req, res) => {
+  const id = req.params.id;
+  const title = req.body.title;
+  const description = req.body.description;
+  const qryTxt = `
+  UPDATE movies 
+  SET title = $1,
+  description = $2
+  WHERE id = $3;
+  `
+  pool.query(qryTxt, [title, description, id])
+  .then(result => {
+    res.sendStatus(200)
+  }).catch(err => {
     res.sendStatus(500)
   })
 })

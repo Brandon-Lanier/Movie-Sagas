@@ -29,10 +29,19 @@ function* rootSaga() {
     yield takeEvery('FETCH_GENRES', fetchGenres);
     yield takeEvery('GET_DETAILS', getDetails);
     yield takeEvery('FETCH_GENRE_DETAILS', getGenreDetails);
-    yield takeEvery('ADD_MOVIE', addMovie)
-    yield takeEvery('ADD_WATCHLIST', addToWatchList)
+    yield takeEvery('ADD_MOVIE', addMovie);
+    yield takeEvery('ADD_WATCHLIST', addToWatchList);
+    yield takeEvery('EDIT_MOVIE', editMovie)
 }
 
+function* editMovie(action) {
+    try {
+        yield axios.put(`/api/movie/edit/${action.payload.id}`, action.payload.update)
+        yield put({type: 'FETCH_MOVIES'})
+    } catch(error) {
+        console.log('Error updating movie', error);
+    }
+}
 
 function* addToWatchList(action) {
     try {
@@ -150,7 +159,7 @@ const watchList = (state = [], action) => {
         case "SET_WATCHLIST":
             return [...state, action.payload]
         case "REMOVE_WATCH":
-            return state.filter(movie => movie.id !== action.payload)
+            return state.filter(movie => movie.id != action.payload)
     }
     return state;
 }

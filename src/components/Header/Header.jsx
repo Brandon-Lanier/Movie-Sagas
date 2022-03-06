@@ -18,20 +18,22 @@ import { useState } from 'react';
 
 function Header() {
 
-    
+    const [selectMovie, setSelectMovie] = useState('')
 
     const movieList = useSelector(store => store.movies);
 
     console.log(movieList);
     const history = useHistory();
 
-
+    const movieSearch = () => {
+        console.log('Searching Movie');
+    }
 
     return (
         <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
             <Toolbar>
-                <DropMenu />
+                {/* <DropMenu /> */}
                 <Typography
                     variant="h5"
                     noWrap
@@ -40,12 +42,13 @@ function Header() {
                 >
                     Movie Sagas
                 </Typography>
-                    {/* <Autocomplete
+                    <Autocomplete
                         id="moviesearch"
                         freeSolo
+                        value={selectMovie}
                         options={movieList.map((option) => option.title)}
                         renderInput={(params) => <TextField {...params} label="Search A Movie" sx={{width:"300px"}} onChange={(e) => setSelectMovie(e.target.value)}/>}
-                    /> */}
+                    /> 
             </Toolbar>
         </AppBar>
         </Box>
