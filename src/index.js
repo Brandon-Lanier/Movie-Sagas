@@ -16,6 +16,10 @@ import { useTheme, ThemeProvider, createTheme } from '@mui/material/styles';
 const darkTheme = createTheme({
     palette: {
       mode: 'dark',
+      primary: {
+        main: '#fff',
+        contrastText: '#121212'
+      }
     },
   });
 
@@ -139,12 +143,14 @@ const genreDetails = (state = [], action) => {
     }
 }
 
-// Reducer that stores things selected for watchlist
+// Reducer that stores things selected for watchlist and manages removing them.
 const watchList = (state = [], action) => {
     console.log('In Watch List', action.payload);
     switch (action.type){
         case "SET_WATCHLIST":
             return [...state, action.payload]
+        case "REMOVE_WATCH":
+            return state.filter(movie => movie.id !== action.payload)
     }
     return state;
 }

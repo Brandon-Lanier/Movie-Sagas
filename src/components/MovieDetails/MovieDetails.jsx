@@ -73,7 +73,7 @@ function MovieDetails() {
     return (
         <>
             {openAlert && <Alert severity="success">Movie Added To Watchlist!</Alert>}
-            <Box sx={{ mt: '10px' }}>
+            <Box sx={{ mt: '10px'}} >
                 <Button onClick={goBack}>Back To List</Button>
             </Box>
             <Fade in="true" out="close" mountOnEnter unmountOnExit>
