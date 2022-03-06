@@ -8,15 +8,18 @@ import { Container, Box, Typography, TextField, Button, FormControl, Select, Men
 
 function AddMovie() {
 
+    
     useEffect(() => {
         dispatch({ type: 'FETCH_GENRES' });
     }, []);
 
+    // Get a list of all available genres
     const genres = useSelector(store => store.genres)
 
     const history = useHistory();
     const dispatch = useDispatch();
 
+    // Default state of movie object to send to server
     const movieState = {
         title: '',
         poster: '',
@@ -25,15 +28,18 @@ function AddMovie() {
     };
 
     const [newMovie, setNewMovie] = useState(movieState);
-    const [showDialog, setShowDialog] = useState(false)
+    const [showDialog, setShowDialog] = useState(false); // Handles opening and closing dialog
+
 
     const addMovie = (event) => {
+        // If all fields have valid inputs, continue
         if (newMovie.title, newMovie.poster, newMovie.description, newMovie.genres) {
             event.preventDefault();
             dispatch({ type: 'ADD_MOVIE', payload: newMovie });
             setNewMovie(movieState);
         }
         else {
+            // If a field is not filled out, display dialog
             setShowDialog(true);
         }
     }
@@ -41,8 +47,6 @@ function AddMovie() {
     const handleClose = () => {
         setShowDialog(false);
     };
-
-
 
     return (
         <>

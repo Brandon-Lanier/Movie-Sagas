@@ -6,16 +6,22 @@ import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import Grid from '@mui/material/Grid';
-import { Box, Container } from '@mui/material';
+import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import ButtonBase from '@mui/material/ButtonBase';
 import { Fade } from '@mui/material';
-import Alert from '@mui/material/Alert';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import { useHistory } from 'react-router-dom';
+import Snackbar from '@mui/material/Snackbar';
+import TextField from '@mui/material/TextField';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 import './MovieDetails.css'
 
 
@@ -29,14 +35,37 @@ function MovieDetails() {
     const genresArray = useSelector(store => store.genreDetails)
 
 
-
     useEffect(() => {
         dispatch({ type: 'GET_DETAILS', payload: id });
         dispatch({ type: 'FETCH_GENRE_DETAILS', payload: id });
-        setTimeout(() => {
-            setOpenAlert(false);
-        }, 3000);
     }, []);
+
+
+    const updateState = {
+        title: '',
+        description: ''
+    }
+
+    const [update, setUpdate] = useState(updateState)
+    const [open, setOpen] = useState(false)
+
+    const updateMovie = (e) => {
+        console.log('Update movie is', update);
+        e.preventDefault();
+        dispatch({ type: 'EDIT_MOVIE', payload: { update, id } });
+        setOpen(false);
+        setUpdate(updateState);
+        dispatch({ type: 'GET_DETAILS', payload: id });
+    }
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleCloseEdit = () => {
+        setOpen(false);
+        setUpdate(updateState);
+    }
 
     const Img = styled('img')({
         margin: 'auto',
@@ -45,16 +74,16 @@ function MovieDetails() {
         maxHeight: '100%',
     });
 
-    const handleRemove = () => {
-        console.log('In Remove Function', id);
-    }
-
     const [openAlert, setOpenAlert] = useState(false);
 
     const alert = () => {
-        // Will open the MUI alert upon adding to favorites
+        // Will open the MUI snackbar upon adding to favorites
         setOpenAlert(!openAlert);
     }
+
+    const handleClose = () => {
+        setOpenAlert(false);
+    };
 
     const addWatchList = () => {
         dispatch({ type: 'ADD_WATCHLIST', payload: id })
@@ -68,12 +97,14 @@ function MovieDetails() {
 
     const searchGenre = (genre) => {
         console.log('In Search genre', genre);
+        history.push(`/genres/${genre.name}`)
     }
+
+
 
     return (
         <>
-            {openAlert && <Alert severity="success">Movie Added To Watchlist!</Alert>}
-            <Box sx={{ mt: '10px'}} >
+            <Box sx={{ mt: '10px' }} >
                 <Button onClick={goBack}>Back To List</Button>
             </Box>
             <Fade in="true" out="close" mountOnEnter unmountOnExit>
@@ -85,8 +116,7 @@ function MovieDetails() {
                         maxWidth: 500,
                         flexGrow: 1,
                         elevation: 5,
-                        backgroundColor: (theme) =>
-                            theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+
                     }}
                 >
                     <Grid container spacing={2}>
@@ -117,21 +147,61 @@ function MovieDetails() {
                                     </Typography>
                                 </Grid>
                                 <Grid item>
-                                    <Typography sx={{ cursor: 'pointer' }} variant="body1" onClick={handleRemove}>
-                                        Edit Details
-                                    </Typography>
+                                    <Button sx={{ m: '0' }} onClick={handleClickOpen}>Edit Details</Button>
                                 </Grid>
                                 <Grid item>
-                                    <Typography sx={{ cursor: 'pointer' }} variant="body1" onClick={addWatchList}>
-                                        Add To Watchlist
-                                    </Typography>
+                                    <Button sx={{ m: '0' }} onClick={addWatchList}>Add To Watchlist</Button>
+                                    {openAlert && <Snackbar
+                                        open={alert}
+                                        onClose={handleClose}
+                                        autoHideDuration={2000}
+                                        message="Added To Watchlist"
 
+                                    />}
                                 </Grid>
                             </Grid>
                         </Grid>
                     </Grid>
                 </Paper>
             </Fade>
+            {open && <Dialog open={open} onClose={handleCloseEdit}>
+                <DialogTitle>Edit Movie</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        Edit {details.title}
+                    </DialogContentText>
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="title"
+                        label="Title"
+                        type="text"
+                        fullWidth
+                        placeholder={details.title}
+                        variant="standard"
+                        value={update.title}
+                        onChange={(e) => setUpdate({ ...update, title: e.target.value })}
+                    />
+                    <TextField
+                        autoFocus
+                        multiline
+                        rows="5"
+                        fullWidth
+                        label=" Movie Description"
+                        margin="dense"
+                        id="description"
+                        type="text"
+                        placeholder={details.description}
+                        variant="standard"
+                        value={update.description}
+                        onChange={(e) => setUpdate({ ...update, description: e.target.value })}
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleCloseEdit}>Cancel</Button>
+                    <Button onClick={updateMovie}>Update Movie</Button>
+                </DialogActions>
+            </Dialog>}
         </>
     )
 }

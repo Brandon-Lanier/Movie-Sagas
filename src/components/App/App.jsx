@@ -8,7 +8,7 @@ import Header from '../Header/Header';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import Footer from '../Footer/Footer';
-
+import Genres from '../Genres/Genres';
 
 function App() {
 
@@ -34,6 +34,9 @@ function App() {
         </Route>
         <Route path="/watchlist">
           <WatchList />
+        </Route>
+        <Route path="/genres/:genre">
+          <Genres />
         </Route>
         <Footer />
       </Router>

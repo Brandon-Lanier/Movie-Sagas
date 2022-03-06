@@ -28,13 +28,15 @@ function Footer() {
     return (
         <Box sx={{ pb: 7 }}>
             <CssBaseline />
-            <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, backgroundColor: (theme) =>
-            theme.palette.mode === 'dark' ? '#1A2027' : '#fff'}} elevation={5}>
+            <Paper sx={{
+                position: 'fixed', bottom: 0, left: 0, right: 0, backgroundColor: (theme) =>
+                    theme.palette.mode === 'dark' ? '#1A2027' : '#fff'
+            }} elevation={5}>
                 <BottomNavigation showLabels
                 >
-                    <BottomNavigationAction label="Add Movie" icon={<AddCircleIcon />} onClick={goAdd}/>
-                    <BottomNavigationAction label="Home" icon={<HomeIcon />} onClick={goHome}/>
-                    <BottomNavigationAction label="Watchlist" icon={<TheatersIcon />} onClick={goWatch}/>
+                    <BottomNavigationAction label="Add Movie" icon={<AddCircleIcon />} onClick={goAdd} />
+                    <BottomNavigationAction label="Home" icon={<HomeIcon />} onClick={goHome} />
+                    <BottomNavigationAction label="Watchlist" icon={<TheatersIcon />} onClick={goWatch} />
                 </BottomNavigation>
             </Paper>
         </Box>

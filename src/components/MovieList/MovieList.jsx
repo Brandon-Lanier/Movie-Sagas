@@ -14,7 +14,7 @@ function MovieList() {
 
     return (
         <main>
-            <Typography variant="h3">
+            <Typography variant="h3" sx={{m: '10px'}}>
             Movie List
             </Typography>
             <section className="movies">
