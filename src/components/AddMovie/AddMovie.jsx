@@ -2,38 +2,31 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import {
-    Container,
-    Box,
-    Typography,
-    TextField,
-    Button,
-    FormControl,
-    Select,
-    MenuItem,
-    InputLabel,
-    Paper,
-} from '@mui/material';
+import { useHistory } from 'react-router-dom';
+import {Container, Box, Typography, TextField, Button, FormControl, Select, MenuItem, InputLabel, Paper} from '@mui/material';
 
 function AddMovie() {
-
-    const movieState = {
-        genres: [],
-        title: '',
-        poster: '',
-        description: '',
-    };
 
     useEffect(() => {
         dispatch({ type: 'FETCH_GENRES' });
     }, []);
 
-    const [newMovie, setNewMovie] = useState(movieState);
-    const dispatch = useDispatch();
-
     const genres = useSelector(store => store.genres)
 
-    const saveMovie = (event) => {
+    const history = useHistory();
+    const dispatch = useDispatch();
+
+    const movieState = {
+        title: '',
+        poster: '',
+        description: '',
+        genres: ''
+    };
+
+    const [newMovie, setNewMovie] = useState(movieState);
+
+
+    const addMovie = (event) => {
         event.preventDefault();
         dispatch({ type: 'ADD_MOVIE', payload: newMovie });
         setNewMovie(movieState);
@@ -62,9 +55,7 @@ function AddMovie() {
                         label="Movie Title"
                         required
                         value={newMovie.title}
-                        onChange={(e) =>
-                            setNewMovie({ ...newMovie, title: e.target.value })
-                        }
+                        onChange={(e) => setNewMovie({ ...newMovie, title: e.target.value })}
                     />
                     <TextField
                         sx={{ margin: '10px' }}
@@ -72,8 +63,7 @@ function AddMovie() {
                         required
                         label="Movie Poster URL"
                         value={newMovie.poster}
-                        onChange={(e) =>
-                            setNewMovie({ ...newMovie, poster: e.target.value })
+                        onChange={(e) => setNewMovie({ ...newMovie, poster: e.target.value })
                         }
                     />
                     <TextField
@@ -83,8 +73,7 @@ function AddMovie() {
                         rows="5"
                         label=" Movie Description"
                         value={newMovie.description}
-                        onChange={(e) =>
-                            setNewMovie({ ...newMovie, description: e.target.value })
+                        onChange={(e) => setNewMovie({ ...newMovie, description: e.target.value })
                         }
                     ></TextField>
                 </FormControl>
@@ -103,9 +92,7 @@ function AddMovie() {
                             id="select-genres"
                             label="Select Genres"
                             value={newMovie.genres}
-                            onChange={(e) =>
-                                setNewMovie({ ...newMovie, genres: e.target.value })
-                            }
+                            onChange={(e) => setNewMovie({ ...newMovie, genres: e.target.value })}
                         >
                             {genres.map((genre) => (
                                 <MenuItem key={genre.id} value={genre.id}>
@@ -134,7 +121,7 @@ function AddMovie() {
                     <Button
                         variant="contained"
                         color="primary"
-                        onClick={saveMovie}
+                        onClick={addMovie}
                         sx={{ margin: '10px' }}
                     >
                         <Typography variant="h6">Submit</Typography>

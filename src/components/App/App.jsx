@@ -3,6 +3,7 @@ import './App.css';
 import MovieList from '../MovieList/MovieList';
 import MovieDetails from '../MovieDetails/MovieDetails';
 import AddMovie from '../AddMovie/AddMovie';
+import WatchList from '../WatchList/WatchList';
 import Header from '../Header/Header';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
@@ -31,7 +32,9 @@ function App() {
         <Route path="/add">
           <AddMovie />
         </Route>
-        
+        <Route path="/watchlist">
+          <WatchList />
+        </Route>
       </Router>
     </div>
   );

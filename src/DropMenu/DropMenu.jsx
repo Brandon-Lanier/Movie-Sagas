@@ -30,6 +30,10 @@ function DropMenu() {
         handleClose();
     }
 
+    const goWatchList = () => {
+        history.push('/watchlist')
+    }
+
     return (
 
         <div>
@@ -58,6 +62,7 @@ function DropMenu() {
             >
                 <MenuItem onClick={goHome}>Home</MenuItem>
                 <MenuItem onClick={goAddMovie}>Add A Movie</MenuItem>
+                <MenuItem onClick={goWatchList}>Watchlist</MenuItem>
             </Menu>
         </div>
     )
