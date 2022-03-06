@@ -22,23 +22,18 @@ function Header() {
 
     const movieList = useSelector(store => store.movies);
 
-    console.log(movieList);
-    const history = useHistory();
-
     const movieSearch = () => {
         console.log('Searching Movie');
     }
 
     return (
-        <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
-            <Toolbar>
+        <AppBar position="static" >
+            <Toolbar sx={{display: 'flex', justifyContent: 'space-between'}}>
                 {/* <DropMenu /> */}
                 <Typography
                     variant="h5"
                     noWrap
                     component="div"
-                    sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
                 >
                     Movie Sagas
                 </Typography>
@@ -51,7 +46,7 @@ function Header() {
                     /> 
             </Toolbar>
         </AppBar>
-        </Box>
+        
     )
 }
 

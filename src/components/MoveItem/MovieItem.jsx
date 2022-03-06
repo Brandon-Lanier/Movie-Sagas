@@ -2,11 +2,9 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { Button, CardActionArea, CardActions } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
+import { CardActionArea } from '@mui/material';
+import { useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
-
-
 
 
 function MovieItem({ movie }) {
@@ -16,9 +14,6 @@ function MovieItem({ movie }) {
 
     const handleClick = (movie) => {
         dispatch({type: 'SET_DETAILS', payload: movie})
-        console.log('selected movie is', movie);
-        // dispatch({type: 'GET_DETAILS', payload: movie});
-        // dispatch({type: 'FETCH_GENRE_DETAILS', payload: movie})
         history.push(`/details/${movie.id}`)
     }
     
