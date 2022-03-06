@@ -27,7 +27,7 @@ function MovieDetails() {
     const genresArray = useSelector(store => store.genreDetails)
 
     useEffect(() => {
-        // dispatch({ type: 'GET_DETAILS', payload: id });
+        dispatch({ type: 'GET_DETAILS', payload: id });
         dispatch({ type: 'FETCH_GENRE_DETAILS', payload: id });
         setTimeout(() => {
             setOpenAlert(false);
@@ -110,7 +110,7 @@ function MovieDetails() {
                                 </Grid>
                                 <Grid item>
                                     <Typography sx={{ cursor: 'pointer' }} variant="body1" onClick={handleRemove}>
-                                        Remove
+                                        Edit Details
                                     </Typography>
                                 </Grid>
                                 <Grid item>

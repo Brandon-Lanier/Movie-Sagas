@@ -67,7 +67,7 @@ function* getDetails(action) {
     try {
         const movie = yield axios.get(`/api/movie/${action.payload}`)
         console.log('movie GET FROM server', movie);
-        yield put({type: 'SET_DETAILS', payload: movie.data.data})
+        yield put({type: 'SET_DETAILS', payload: movie.data[0]})
     } catch (error) {
         console.log('Error getting details', error);  
     }
@@ -124,13 +124,10 @@ const details = (state = {}, action) => {
     switch (action.type) {
         case 'SET_DETAILS':
                 return action.payload;
-        case 'GET_DETAILS':
-            return state
         default: 
             return state;
     }
 }
-
 
 const genreDetails = (state = [], action) => {
     console.log('Inside Reducer for Genres', action.payload );

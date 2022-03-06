@@ -8,7 +8,7 @@ import InputBase from '@mui/material/InputBase';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
-import DropMenu from '../../DropMenu/DropMenu';
+import DropMenu from '../DropMenu/DropMenu';
 import Autocomplete from '@mui/material/Autocomplete';
 import { useSelector } from 'react-redux';
 import TextField from '@mui/material/TextField';
