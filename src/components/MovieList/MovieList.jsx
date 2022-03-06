@@ -2,9 +2,10 @@ import react from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import MovieItem from '../MoveItem/MovieItem';
-import './MovieList.css'
 import { Typography } from '@mui/material';
-import Grow from '@mui/material/Grow';
+import './MovieList.css'
+
+
 
 function MovieList() {
 
