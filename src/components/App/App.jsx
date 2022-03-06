@@ -6,6 +6,7 @@ import AddMovie from '../AddMovie/AddMovie';
 import Header from '../Header/Header';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import Footer from '../Footer/Footer';
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
         <Route path="/add">
           <AddMovie />
         </Route>
+        
       </Router>
     </div>
   );

@@ -33,7 +33,7 @@ function Header() {
             <Toolbar>
                 <DropMenu />
                 <Typography
-                    variant="h6"
+                    variant="h5"
                     noWrap
                     component="div"
                     sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
