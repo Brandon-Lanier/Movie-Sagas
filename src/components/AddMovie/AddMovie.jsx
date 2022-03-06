@@ -2,45 +2,50 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import {
-    Container,
-    Box,
-    Typography,
-    TextField,
-    Button,
-    FormControl,
-    Select,
-    MenuItem,
-    InputLabel,
-    Paper,
-} from '@mui/material';
+import { useHistory } from 'react-router-dom';
+import DialogModal from '../DialogModal/DialogModal';
+import {Container, Box, Typography, TextField, Button, FormControl, Select, MenuItem, InputLabel, Paper} from '@mui/material';
 
 function AddMovie() {
-
-    const movieState = {
-        genres: [],
-        title: '',
-        poster: '',
-        description: '',
-    };
 
     useEffect(() => {
         dispatch({ type: 'FETCH_GENRES' });
     }, []);
 
-    const [newMovie, setNewMovie] = useState(movieState);
-    const dispatch = useDispatch();
-
     const genres = useSelector(store => store.genres)
 
-    const saveMovie = (event) => {
+    const history = useHistory();
+    const dispatch = useDispatch();
+
+    const movieState = {
+        title: '',
+        poster: '',
+        description: '',
+        genres: ''
+    };
+
+    const [newMovie, setNewMovie] = useState(movieState);
+    const [showDialog, setShowDialog] = useState(false)
+
+    const addMovie = (event) => {
+        if (newMovie.title, newMovie.poster, newMovie.description, newMovie.genres) {
         event.preventDefault();
         dispatch({ type: 'ADD_MOVIE', payload: newMovie });
         setNewMovie(movieState);
+        }
+        else { 
+            setShowDialog(true);
+        }
     }
+
+    const handleClose = () => {
+        setShowDialog(false);
+      };
+
 
 
     return (
+        <>
         <Container sx={{ mt: '30px', display: 'flex', justifyContent: 'center' }}>
             <Paper
                 elevation={12}
@@ -62,9 +67,7 @@ function AddMovie() {
                         label="Movie Title"
                         required
                         value={newMovie.title}
-                        onChange={(e) =>
-                            setNewMovie({ ...newMovie, title: e.target.value })
-                        }
+                        onChange={(e) => setNewMovie({ ...newMovie, title: e.target.value })}
                     />
                     <TextField
                         sx={{ margin: '10px' }}
@@ -72,8 +75,7 @@ function AddMovie() {
                         required
                         label="Movie Poster URL"
                         value={newMovie.poster}
-                        onChange={(e) =>
-                            setNewMovie({ ...newMovie, poster: e.target.value })
+                        onChange={(e) => setNewMovie({ ...newMovie, poster: e.target.value })
                         }
                     />
                     <TextField
@@ -83,8 +85,7 @@ function AddMovie() {
                         rows="5"
                         label=" Movie Description"
                         value={newMovie.description}
-                        onChange={(e) =>
-                            setNewMovie({ ...newMovie, description: e.target.value })
+                        onChange={(e) => setNewMovie({ ...newMovie, description: e.target.value })
                         }
                     ></TextField>
                 </FormControl>
@@ -103,9 +104,7 @@ function AddMovie() {
                             id="select-genres"
                             label="Select Genres"
                             value={newMovie.genres}
-                            onChange={(e) =>
-                                setNewMovie({ ...newMovie, genres: e.target.value })
-                            }
+                            onChange={(e) => setNewMovie({ ...newMovie, genres: e.target.value })}
                         >
                             {genres.map((genre) => (
                                 <MenuItem key={genre.id} value={genre.id}>
@@ -133,8 +132,8 @@ function AddMovie() {
                     </Button>
                     <Button
                         variant="contained"
-                        color="primary"
-                        onClick={saveMovie}
+                        backgroundColor="dark"
+                        onClick={addMovie}
                         sx={{ margin: '10px' }}
                     >
                         <Typography variant="h6">Submit</Typography>
@@ -142,6 +141,8 @@ function AddMovie() {
                     </Box>
             </Paper>
         </Container>
+        {showDialog && <DialogModal />}
+        </>
     )
 }
 
