@@ -5,6 +5,7 @@ const {
 const router = express.Router();
 const pool = require('../modules/pool')
 
+// Get all the genres from the database
 router.get('/', (req, res) => {
   const query = `SELECT * FROM genres ORDER BY name ASC`;
   pool.query(query)
@@ -34,6 +35,7 @@ router.get('/selected/:id', (req, res) => {
     })
 })
 
+// Search the database for movies that have a specific genre
 router.get('/match', (req, res) => {
   console.log('query', req.query.genre);
   const genre = req.query.genre;

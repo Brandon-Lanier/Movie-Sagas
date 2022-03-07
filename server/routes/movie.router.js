@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../modules/pool')
 
+
+// Get all movies from the database
 router.get('/', (req, res) => {
   const query = `SELECT * FROM movies ORDER BY "title" ASC`;
   pool.query(query)
@@ -14,9 +16,10 @@ router.get('/', (req, res) => {
     })
 });
 
+// Get a specific movie details based off the ID of the movie
 router.get('/:id', (req, res) => {
   const id = req.params.id
-  console.log('DEtails id', req.params.id);
+  console.log('Details id', req.params.id);
   const qryTxt = `SELECT * FROM movies WHERE id = $1;`
   pool.query(qryTxt, [id])
     .then(result => {
@@ -28,6 +31,7 @@ router.get('/:id', (req, res) => {
     })
 })
 
+//Add a new movie to the database.  
 router.post('/', (req, res) => {
   console.log(req.body);
   console.log('Genre id on server', req.body.genres);
@@ -61,6 +65,8 @@ router.post('/', (req, res) => {
     })
 })
 
+
+// Update the title and description of a movie, targeting it by the ID
 router.put('/edit/:id', (req, res) => {
   const id = req.params.id;
   const title = req.body.title;

@@ -7,6 +7,7 @@ import DialogModal from '../DialogModal/DialogModal';
 import { Container, Box, Typography, TextField, Button, FormControl, Select, MenuItem, InputLabel, Paper } from '@mui/material';
 
 
+//Not using this anymore.  Now using the Add Dialog component because I wanted it as a dialog popup.
 function AddMovie() {
 
     
