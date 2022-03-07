@@ -26,7 +26,7 @@ function Genres() {
 
     return (
         <div>
-            <Typography variant="h3" sx={{m: '30px'}}>{genre} Movies:</Typography>
+            <Typography variant="h4" sx={{m: '30px'}}>{genre} Movies:</Typography>
             <div className="match-container">
                 {matchedMovies.map(movie => (
                     <MovieItem

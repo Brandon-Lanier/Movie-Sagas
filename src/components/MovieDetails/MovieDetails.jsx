@@ -32,6 +32,8 @@ function MovieDetails() {
     // Store the page params as a variable to access the movies data
     const { id } = useParams();
 
+    console.log('ID is', id);
+
     const details = useSelector(store => store.details);
     const genresArray = useSelector(store => store.genreDetails)
 
@@ -40,7 +42,7 @@ function MovieDetails() {
         // Upon load, get the selected movie details and genre for the movie based on the params id
         dispatch({ type: 'GET_DETAILS', payload: id });
         dispatch({ type: 'FETCH_GENRE_DETAILS', payload: id });
-    }, [updateMovie]);
+    }, []);
 
 
     // Default state for updating the movie title and description
@@ -62,7 +64,7 @@ function MovieDetails() {
         dispatch({ type: 'EDIT_MOVIE', payload: { update, id } });
         setOpen(false); // Close the edit dialog
         setUpdate(updateState); // reset the edit state to default
-        dispatch({ type: 'GET_DETAILS', payload: id }); // Needs to be done to show the updated edits
+        // dispatch({ type: 'GET_DETAILS', payload: id }); // Needs to be done to show the updated edits
     }
 
     const handleClickOpen = () => {

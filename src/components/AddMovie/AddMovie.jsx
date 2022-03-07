@@ -5,6 +5,11 @@ import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import DialogModal from '../DialogModal/DialogModal';
 import { Container, Box, Typography, TextField, Button, FormControl, Select, MenuItem, InputLabel, Paper } from '@mui/material';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 function AddMovie() {
 

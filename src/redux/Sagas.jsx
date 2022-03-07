@@ -17,6 +17,7 @@ function* editMovie(action) {
     try {
         yield axios.put(`/api/movie/edit/${action.payload.id}`, action.payload.update)
         yield put({type: 'FETCH_MOVIES'})
+        yield put({type: 'GET_DETAILS', payload: action.payload.id})
     } catch(error) {
         console.log('Error updating movie', error);
     }

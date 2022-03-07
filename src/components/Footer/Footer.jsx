@@ -7,6 +7,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import TheatersIcon from '@mui/icons-material/Theaters';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import AddDialog from '../AddDialog/AddDialog';
 
 
 function Footer() {
@@ -36,7 +37,7 @@ function Footer() {
                 theme.palette.mode === 'dark' ? '#1A2027' : '#fff'}} elevation={5}>
                 <BottomNavigation showLabels
                 >
-                    <BottomNavigationAction label="Add Movie" icon={<AddCircleIcon />} onClick={goAdd} />
+                    <BottomNavigationAction label="Add Movie" icon={<AddDialog />}/>
                     <BottomNavigationAction label="Home" icon={<HomeIcon />} onClick={goHome} />
                     <BottomNavigationAction label="Watchlist" icon={<TheatersIcon />} onClick={goWatch} />
                 </BottomNavigation>
