@@ -22,6 +22,8 @@ function Genres() {
     const matchedMovies = useSelector(store => store.matchedMovies)
     console.log('Matched Movies', matchedMovies);
 
+    console.log('Matched genres is', matchedMovies);
+
     return (
         <div>
             <Typography variant="h3" sx={{m: '30px'}}>{genre} Movies:</Typography>

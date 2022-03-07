@@ -19,6 +19,7 @@ router.get('/:id', (req, res) => {
   const qryTxt = `SELECT * FROM movies WHERE id = $1;`
   pool.query(qryTxt, [id])
     .then(result => {
+      console.log(result.rows);
       res.send(result.rows)
     }).catch(err => {
       console.log('Error getting movie details', err);
