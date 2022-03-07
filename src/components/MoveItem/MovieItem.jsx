@@ -2,9 +2,10 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { CardActionArea } from '@mui/material';
+import { CardActionArea, CardHeader } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
+
 
 
 function MovieItem({ movie }) {
@@ -28,8 +29,8 @@ function MovieItem({ movie }) {
                     image={movie.poster}
                     alt={movie.title}
                 />
-                <CardContent>
-                    <Typography gutterBottom variant="h6" component="div">
+                <CardContent sx={{m: '0', p: '3px', alignContent: 'center'}}>
+                    <Typography gutterBottom variant="h6">
                         {movie.title}
                     </Typography>
                 </CardContent>

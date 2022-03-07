@@ -43,6 +43,7 @@ const details = (state = {}, action) => {
     }
 }
 
+// Reducer holds the current selected movie genres
 const genreDetails = (state = [], action) => {
     console.log('Inside Reducer for Genres', action.payload );
     switch (action.type){

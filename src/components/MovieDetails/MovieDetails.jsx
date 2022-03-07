@@ -20,6 +20,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import './MovieDetails.css'
 
 
@@ -39,13 +40,13 @@ function MovieDetails() {
         // Upon load, get the selected movie details and genre for the movie based on the params id
         dispatch({ type: 'GET_DETAILS', payload: id });
         dispatch({ type: 'FETCH_GENRE_DETAILS', payload: id });
-    }, []);
+    }, [updateMovie]);
 
 
     // Default state for updating the movie title and description
     const updateState = {
-        title: '',
-        description: ''
+        title: details.title,
+        description: details.description
     }
 
     // Storing the local updates to the movie title and description in here
@@ -117,15 +118,15 @@ function MovieDetails() {
     return (
         <>
             <Box sx={{ mt: '10px' }} >
-                <Button onClick={goBack}>Back To List</Button>
+                <Button onClick={goBack}><ArrowBackIcon />Back To List</Button>
             </Box>
             <Fade in="true" out="close" mountOnEnter unmountOnExit>
                 <Paper
                     sx={{
-                        p: 2,
+                        p: 1,
                         margin: 'auto',
                         mt: '10px',
-                        maxWidth: 500,
+                        maxWidth: 650,
                         flexGrow: 1,
                         elevation: 5,
 
@@ -159,10 +160,10 @@ function MovieDetails() {
                                     </Typography>
                                 </Grid>
                                 <Grid item>
-                                    <Button sx={{ m: '0' }} onClick={handleClickOpen}>Edit Details</Button>
+                                    <Button onClick={handleClickOpen}>Edit Details</Button>
                                 </Grid>
                                 <Grid item>
-                                    <Button sx={{ m: '0' }} onClick={addWatchList}>Add To Watchlist</Button>
+                                    <Button onClick={addWatchList}>Add To Watchlist</Button>
                                     {openAlert && <Snackbar
                                         open={alert}
                                         onClose={handleClose}
@@ -177,11 +178,8 @@ function MovieDetails() {
                 </Paper>
             </Fade>
             {open && <Dialog open={open} onClose={handleCloseEdit}>
-                <DialogTitle>Edit Movie</DialogTitle>
+                <DialogTitle>Edit {details.title}</DialogTitle>
                 <DialogContent>
-                    <DialogContentText>
-                        Edit {details.title}
-                    </DialogContentText>
                     <TextField
                         autoFocus
                         margin="dense"
@@ -189,7 +187,6 @@ function MovieDetails() {
                         label="Title"
                         type="text"
                         fullWidth
-                        placeholder={details.title}
                         variant="standard"
                         value={update.title}
                         onChange={(e) => setUpdate({ ...update, title: e.target.value })}
@@ -203,13 +200,12 @@ function MovieDetails() {
                         margin="dense"
                         id="description"
                         type="text"
-                        placeholder={details.description}
                         variant="standard"
                         value={update.description}
                         onChange={(e) => setUpdate({ ...update, description: e.target.value })}
                     />
                 </DialogContent>
-                <DialogActions>
+                <DialogActions >
                     <Button onClick={handleCloseEdit}>Cancel</Button>
                     <Button onClick={updateMovie}>Update Movie</Button>
                 </DialogActions>
